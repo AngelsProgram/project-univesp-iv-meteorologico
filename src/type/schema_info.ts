@@ -31,7 +31,7 @@ const schema_info = zod.z.object({
     vento_rajada: corce_number,
     vento_velocidade: corce_number,
 })
-    .transform(d=>({
+    .transform(d => ({
         ...d,
         date: d.date.setUTCHours(parseInt(d.time_UTC.slice(0, 2))),
         time_UTC: undefined
@@ -39,4 +39,7 @@ const schema_info = zod.z.object({
 
 const schema = zod.z.array(schema_info);
 
+type TDados = zod.z.infer<typeof schema>;
+
+export type { TDados }
 export { schema }

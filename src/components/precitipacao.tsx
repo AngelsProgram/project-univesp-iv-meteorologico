@@ -1,8 +1,10 @@
 'use client';
 import * as Recharts from 'recharts';
-import type { TDados } from '#/type/schema_info';
+import type { TData } from '#/type/schema_info';
 
-export function ChatPrecipitacao({ data }: { data: TDados }) {
+type Tsd = Omit<TData, 'date'> & { date: string};
+
+export function ChatPrecipitacao({ data }: { data: Tsd[] }) {
   const id_y_axis_left = 'id_y_axis_left';
   const id_y_axis_right = 'id_y_axis_right';
 

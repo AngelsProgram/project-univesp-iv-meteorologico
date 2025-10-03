@@ -39,7 +39,8 @@ const schema_info = zod.z.object({
 
 const schema = zod.z.array(schema_info);
 
+type TData = zod.z.infer<typeof schema_info>
 type TDados = zod.z.infer<typeof schema>;
 
-export type { TDados }
+export type { TData, TDados }
 export { schema }

@@ -14,15 +14,22 @@ function safeSum(a, b){
     return _a+_b;
 }
 
-function rN(e){
+function safeNumber(e){
     const v = isNaN(e)?0:e;
     return v;
 }
 
-function min(a, b){
-    const _a = rN(a);
-    const _b = rN(b);
+function safeMin(a, b){
+    const _a = safeNumber(a);
+    const _b = safeNumber(b);
     const v = Math.min.apply(null, [_a, _b].filter(Boolean));
+    return v;
+}
+
+function safeMax(a, b){
+    const _a = safeNumber(a);
+    const _b = safeNumber(b);
+    const v = Math.max(_a, _b);
     return v;
 }
 
@@ -33,16 +40,24 @@ const obj = schema.parse(jsa).reduce((acc, current, index, array)=>{
             date: d,
             precipitacao_mm: 0,
             umidade: 0,
+            temp_max: 0,
+            temp_min: 0,
+
             temperatura: 0,
             orvalho: 0,
         }
     }
-
+    // Chuva
     acc[d].precipitacao_mm = safeSum(current.precipitacao_mm, acc[d].precipitacao_mm);
     acc[d].umidade = (safeSum(acc[d].umidade + current.umidade)/2);
-    acc[d].temperatura = min(acc[d].temperatura, current.temp_min);
-    acc[d].orvalho = Math.max(acc[d].orvalho, rN(current.tem_orvalho_max));
-    acc[d].vento_velocidade = safeSum(current.vento_velocidade, acc[d].vento_velocidade);
+    // Temperatura
+    acc[d].temp_max = safeMax(acc[d].temp_max, current.temp_max);
+    acc[d].temp_min = safeMin(acc[d].temp_min, current.temp_min);
+    // vento
+    acc[d].vento_velocidade = safeMax(acc[d].vento_velocidade, current.vento_velocidade);
+    // A chance de chuva está ligada a temperatura_orvalho_minima alcança temperatura_bulbo
+    acc[d].temperatura = safeMin(acc[d].temperatura, current.temp_min);
+    acc[d].orvalho = Math.max(acc[d].orvalho, safeNumber(current.tem_orvalho_max));
 
     return acc;
 }, {});

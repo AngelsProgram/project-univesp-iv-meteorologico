@@ -6,6 +6,8 @@ const schema_info = zod.z.object({
     date: zod.z.string(),
     precipitacao_mm: corce_number,
     umidade: corce_number,
+    temp_max: corce_number,
+    temp_min: corce_number,
     temperatura: corce_number,
     orvalho: corce_number,
     vento_velocidade: corce_number,

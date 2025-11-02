@@ -3,8 +3,6 @@ import * as Recharts from 'recharts';
 import type { TData } from '#/type/schema_info';
 type Tsd = Omit<TData, 'date'> & { date: string };
 
-const colors = ["#018FC7", "#83C0DF", "#80B9C8", "#B1D0E2"];
-
 export default function Graph({ data }: { data: Tsd[] }) {
   const id_y_axis_left = 'id_y_axis_left_umidade';
   const id_y_axis_right = 'id_y_axis_right_precipitacao';

@@ -8,6 +8,7 @@ export function Header() {
                 <ul>
                     <li><NextLink href='/'>Home</NextLink></li>
                     <li><NextLink href='/precipitacao'>Precipitação</NextLink></li>
+                    <li><NextLink href='/temperatura'>Temperatura</NextLink></li>
                     <li><NextLink href='/vento'>Vento</NextLink></li>
                 </ul>
             </nav>

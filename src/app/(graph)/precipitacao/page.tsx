@@ -1,9 +1,14 @@
 import { getDataFiltered } from '#/data';
-import Graph from './precitipacao';
+import Graph from './graph';
 
 export default async function Page(props: PageProps<"/">) {
   const search = await props.searchParams;
   const d = getDataFiltered(search);
 
-  return <Graph data={d} />;
+  return (
+    <>
+      <h2>Gráfico de Precipitação</h2>
+      <Graph data={d} />
+    </>
+  );
 }
